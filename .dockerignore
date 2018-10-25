@@ -1,0 +1,6 @@
+.pytest_cache
+.tox
+*.egg-info/
+.git
+.env
+tests/
