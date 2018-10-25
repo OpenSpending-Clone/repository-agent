@@ -1,0 +1,4 @@
+0000000000000000000000000000000000000000 db957e10498ca750420f9bcba27f63bd3975e377 Brook Elgie <specialbrew@gmail.com> 1540375240 +0100	commit (initial): An example source-spec repository
+db957e10498ca750420f9bcba27f63bd3975e377 5145ab509472f87a7f0d2e0c574e375dc755fa60 Brook Elgie <specialbrew@gmail.com> 1540380166 +0100	commit: A small change
+5145ab509472f87a7f0d2e0c574e375dc755fa60 084807a8e1ce7b840413e0cf3126f13a57ba1a0f Brook Elgie <specialbrew@gmail.com> 1540380406 +0100	commit: A small change
+084807a8e1ce7b840413e0cf3126f13a57ba1a0f 89e40436798df7736f4d08005580c780ada8180f Brook Elgie <specialbrew@gmail.com> 1540393746 +0100	commit: Move files to create simpler repo

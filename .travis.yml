@@ -1,0 +1,15 @@
+language: python
+
+python:
+  - 3.6
+
+env:
+  - TOXENV="py${PYTHON_VERSION//./}"
+
+install:
+  - pip install tox coveralls
+
+script: tox
+
+after_success:
+  - coveralls
