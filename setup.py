@@ -18,9 +18,11 @@ def read(*paths):
 PACKAGE = 'datapackage_pipelines_registry_agent'
 NAME = PACKAGE.replace('_', '-')
 INSTALL_REQUIRES = [
-    'datapackage-pipelines>=1.7.0,<2.0',
     'gitpython',
-    'python-dotenv'
+    'python-dotenv',
+    'celery>=4.2.0',
+    'redis',
+    'envparse'
 ]
 TESTS_REQUIRE = [
     'pylama',

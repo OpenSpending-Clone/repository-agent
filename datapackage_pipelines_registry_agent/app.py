@@ -2,6 +2,7 @@ import os
 from urllib.parse import urlparse
 
 from git import Repo
+from git.exc import GitCommandError
 from dotenv import load_dotenv
 
 import logging
@@ -9,20 +10,15 @@ log = logging.getLogger(__name__)
 
 load_dotenv()
 
-REPOS = [
-    "https://github.com/brew/example-source-spec",
-    "/Users/brew/Work/openknowledge/frictionlessdata/local-example-source-spec"
-]
-
 
 def _get_repo_dir_path(url):
     '''
     For a given git url, return the local repo directory path. This is based on
-    the 'humanish' repo directory name and the BASE_SPEC_DIR.
+    the 'humanish' repo directory name and the REGISTRY_BASE_DIR.
     '''
-    BASE_SPEC_DIR = os.environ['DPP_BASE_SPEC_DIR']
+    BASE_DIR = os.environ['REGISTRY_BASE_DIR']
     repo_dir = os.path.basename(urlparse(url).path).split('.')[0]
-    return os.path.join(BASE_SPEC_DIR, repo_dir)
+    return os.path.join(BASE_DIR, repo_dir)
 
 
 def _pull_repo(repo_url):
@@ -36,7 +32,12 @@ def _pull_repo(repo_url):
 
     # If repo_path empty, clone repo_url into it.
     if not os.listdir(repo_path):
-        Repo.clone_from(repo_url, repo_path, branch='master')
+        try:
+            log.info('Cloning {}'.format(repo_url))
+            Repo.clone_from(repo_url, repo_path, branch='master')
+        except GitCommandError:
+            log.error('Can\'t clone {}'.format(repo_url))
+
     # If repo_path isn't empty...
     else:
         repo = Repo(repo_path)
@@ -46,12 +47,3 @@ def _pull_repo(repo_url):
             repo.git.clean('-d', '-f')
             repo.head.reset(index=True, working_tree=True)
             repo.remotes.origin.pull()
-
-
-def pull_repos():
-    for repo_url in REPOS:
-        _pull_repo(repo_url)
-
-
-if __name__ == "__main__":
-    pull_repos()
