@@ -1,8 +1,14 @@
-.PHONY: all install list test version
+.PHONY: all install list test version ci-push ci-login
 
 
 PACKAGE := $(shell grep '^PACKAGE =' setup.py | cut -d "'" -f2)
 VERSION := $(shell head -n 1 $(PACKAGE)/VERSION)
+NAME   := $(shell grep '^NAME =' setup.py | cut -d "'" -f2)
+ORG    := openspending
+REPO   := ${ORG}/${NAME}
+TAG    := $(shell git log -1 --pretty=format:"%h")
+IMG    := ${REPO}:${TAG}
+LATEST := ${REPO}:latest
 
 
 all: list
@@ -24,3 +30,10 @@ test:
 
 version:
 	@echo $(VERSION)
+
+ci-push: ci-login
+	docker push ${IMG}
+	docker push ${LATEST}
+
+ci-login:
+	docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
