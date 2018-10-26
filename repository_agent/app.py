@@ -21,7 +21,7 @@ def _get_repo_dir_path(url):
     return os.path.join(BASE_DIR, repo_dir)
 
 
-def _pull_repo(repo_url):
+def update_repo(repo_url):
     '''
     Update an individual repo.
     '''

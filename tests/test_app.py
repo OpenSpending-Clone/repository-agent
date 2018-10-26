@@ -5,7 +5,7 @@ import unittest
 from test.support import EnvironmentVarGuard
 
 from repository_agent.app import \
-    _get_repo_dir_path, _pull_repo
+    _get_repo_dir_path, update_repo
 
 
 class TestGetRepoPath(unittest.TestCase):
@@ -63,7 +63,7 @@ class TestPullRepos(unittest.TestCase):
             assert not os.path.isdir(os.path.join(self.tmp_dir,
                                      'local-example'))
 
-            _pull_repo(self.local_repo)
+            update_repo(self.local_repo)
 
             # but does exist here
             assert os.path.isdir(os.path.join(self.tmp_dir, 'local-example'))
@@ -77,7 +77,7 @@ class TestPullRepos(unittest.TestCase):
         '''
         with self.env:
             # pull local repo to tmp directory location
-            _pull_repo(self.local_repo)
+            update_repo(self.local_repo)
 
             original_file = os.path.join(self.local_repo, 'budget.csv')
             new_repo_file = os.path.join(self.tmp_dir,
@@ -96,7 +96,7 @@ class TestPullRepos(unittest.TestCase):
                 assert org.readline() != new.readline()
 
             # pull again (should change new file contents back to match repo)
-            _pull_repo(self.local_repo)
+            update_repo(self.local_repo)
 
             # first line corresponds with original file
             with open(original_file) as org, open(new_repo_file) as new:
