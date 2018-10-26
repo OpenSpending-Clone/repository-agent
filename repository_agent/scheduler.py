@@ -1,7 +1,13 @@
 from envparse import env
 from celery import Celery
 
+from git.exc import GitCommandError, InvalidGitRepositoryError
+
 from repository_agent.app import update_repo
+
+import logging
+log = logging.getLogger(__name__)
+
 
 REPOS = env('REGISTRY_REPOS', cast=list, subcast=str)
 UPDATE_FREQUENCY = env.int('REGISTRY_UPDATE_FREQUENCY', default=30)
@@ -23,4 +29,8 @@ def update_all_repos(repos):
 
 @celeryapp.task
 def update_repo_task(repo_url):
-    update_repo(repo_url)
+    try:
+        update_repo(repo_url)
+    except (GitCommandError, InvalidGitRepositoryError) as e:
+        log.error('Repo update failed. Logging and moving on...')
+        log.error(e)

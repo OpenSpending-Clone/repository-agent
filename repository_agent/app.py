@@ -2,7 +2,6 @@ import os
 from urllib.parse import urlparse
 
 from git import Repo
-from git.exc import GitCommandError
 from dotenv import load_dotenv
 
 import logging
@@ -32,12 +31,8 @@ def update_repo(repo_url):
 
     # If repo_path empty, clone repo_url into it.
     if not os.listdir(repo_path):
-        try:
-            log.info('Cloning {}'.format(repo_url))
-            Repo.clone_from(repo_url, repo_path, branch='master')
-        except GitCommandError:
-            log.error('Can\'t clone {}'.format(repo_url))
-
+        log.info('Cloning {}'.format(repo_url))
+        Repo.clone_from(repo_url, repo_path, branch='master')
     # If repo_path isn't empty...
     else:
         repo = Repo(repo_path)

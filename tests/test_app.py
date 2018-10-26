@@ -4,6 +4,8 @@ import tempfile
 import unittest
 from test.support import EnvironmentVarGuard
 
+from git.exc import GitCommandError
+
 from repository_agent.app import \
     _get_repo_dir_path, update_repo
 
@@ -101,3 +103,10 @@ class TestPullRepos(unittest.TestCase):
             # first line corresponds with original file
             with open(original_file) as org, open(new_repo_file) as new:
                 assert org.readline() == new.readline()
+
+    def test_pull_non_existing_repo(self):
+        '''
+        An exception is raised if a non-existing repo update is attempted.
+        '''
+        with self.env, self.assertRaises(GitCommandError):
+            update_repo('/my/local/path/to/nonexistent-repo')
