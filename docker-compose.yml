@@ -4,12 +4,12 @@ services:
   agent:
     build: .
     environment:
-      REGISTRY_BASE_DIR: /app/source-specs
-      REGISTRY_BROKER: redis://redis:6379/10
-      REGISTRY_REPOS: "https://github.com/brew/example-source-spec,
+      REPO_AGENT_BASE_DIR: /app/source-specs
+      REPO_AGENT_BROKER: redis://redis:6379/10
+      REPO_AGENT_REPOS: "https://github.com/brew/example-source-spec,
                        /Another/nonexistent/path/repo,
                        https://example.com/example-repo.git"
-      REGISTRY_UPDATE_FREQUENCY: 15
+      REPO_AGENT_UPDATE_FREQUENCY: 15
     volumes:
       - ~/src/dockerfiles/agent:/app/source-specs
 

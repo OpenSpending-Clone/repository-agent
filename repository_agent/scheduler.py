@@ -9,9 +9,9 @@ import logging
 log = logging.getLogger(__name__)
 
 
-REPOS = env('REGISTRY_REPOS', cast=list, subcast=str)
-UPDATE_FREQUENCY = env.int('REGISTRY_UPDATE_FREQUENCY', default=30)
-BROKER = env('REGISTRY_BROKER')
+REPOS = env('REPO_AGENT_REPOS', cast=list, subcast=str)
+UPDATE_FREQUENCY = env.int('REPO_AGENT_UPDATE_FREQUENCY', default=30)
+BROKER = env('REPO_AGENT_BROKER')
 
 celeryapp = Celery(broker=BROKER)
 

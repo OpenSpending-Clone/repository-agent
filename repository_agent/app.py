@@ -13,9 +13,9 @@ load_dotenv()
 def _get_repo_dir_path(url):
     '''
     For a given git url, return the local repo directory path. This is based on
-    the 'humanish' repo directory name and the REGISTRY_BASE_DIR.
+    the 'humanish' repo directory name and the REPO_AGENT_BASE_DIR.
     '''
-    BASE_DIR = os.environ['REGISTRY_BASE_DIR']
+    BASE_DIR = os.environ['REPO_AGENT_BASE_DIR']
     repo_dir = os.path.basename(urlparse(url).path).split('.')[0]
     return os.path.join(BASE_DIR, repo_dir)
 

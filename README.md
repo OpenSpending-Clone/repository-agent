@@ -24,12 +24,12 @@ pip install -e .
 Settings can be configured via environmental variables.
 
 ```sh
-REGISTRY_BASE_DIR: /app/repositories  # Directory to clone repos to
+REPO_AGENT_BASE_DIR: /app/repositories  # Directory to clone repos to
 
 # If using the celery scheduler
-REGISTRY_UPDATE_FREQUENCY: 300  # Frequency, in seconds, for updating the registry.
-REGISTRY_BROKER: redis://redis:6379/10  # URL for the redis task broker
-REGISTRY_REPOS: https://github.com/example1/example-repo, https://github.com/example2/example-repo  # List of repositories separated by commas
+REPO_AGENT_UPDATE_FREQUENCY: 300  # Frequency, in seconds, for updating the registry.
+REPO_AGENT_BROKER: redis://redis:6379/10  # URL for the redis task broker
+REPO_AGENT_REPOS: https://github.com/example1/example-repo, https://github.com/example2/example-repo  # List of repositories separated by commas
 ```
 
 ### Local development

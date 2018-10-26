@@ -14,7 +14,7 @@ class TestGetRepoPath(unittest.TestCase):
 
     def setUp(self):
         self.env = EnvironmentVarGuard()
-        self.env.set('REGISTRY_BASE_DIR', '/path/to/specs')
+        self.env.set('REPO_AGENT_BASE_DIR', '/path/to/specs')
 
     def test_path_success(self):
         valid_paths = [
@@ -47,7 +47,7 @@ class TestPullRepos(unittest.TestCase):
         os.rename(os.path.join(self.local_repo, 'dotgit'),
                   os.path.join(self.local_repo, '.git'))
 
-        self.env.set('REGISTRY_BASE_DIR', self.tmp_dir)
+        self.env.set('REPO_AGENT_BASE_DIR', self.tmp_dir)
 
     def tearDown(self):
         shutil.rmtree(self.tmp_dir)
