@@ -3,7 +3,7 @@
 
 PACKAGE := $(shell grep '^PACKAGE =' setup.py | cut -d "'" -f2)
 VERSION := $(shell head -n 1 $(PACKAGE)/VERSION)
-NAME   := $(shell grep '^NAME =' setup.py | cut -d "'" -f2)
+NAME   := repository-agent
 ORG    := openspending
 REPO   := ${ORG}/${NAME}
 TAG    := $(shell git log -1 --pretty=format:"%h")
