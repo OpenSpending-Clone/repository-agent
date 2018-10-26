@@ -32,6 +32,7 @@ version:
 	@echo $(VERSION)
 
 ci-push: ci-login
+	docker build -t ${IMG} -t ${LATEST} .
 	docker push ${IMG}
 	docker push ${LATEST}
 
