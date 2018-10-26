@@ -11,9 +11,7 @@ RUN apk add --virtual .build-deps \
     && pip install -e ./app \
     && apk del --no-cache .build-deps
 
-# ENV repos list
-
-WORKDIR /app/datapackage_pipelines_registry_agent
+WORKDIR /app/repository_agent
 
 ENTRYPOINT ["celery"]
 CMD ["-A", "scheduler", "worker", "-B"]

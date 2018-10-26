@@ -7,7 +7,6 @@ services:
       REGISTRY_BASE_DIR: /app/source-specs
       REGISTRY_BROKER: redis://redis:6379/10
       REGISTRY_REPOS: "https://github.com/brew/example-source-spec,
-                       /Users/brew/Work/openknowledge/frictionlessdata/local-example-source-spec,
                        /Another/nonexistent/path/repo,
                        https://example.com/example-repo.git"
       REGISTRY_UPDATE_FREQUENCY: 15

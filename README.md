@@ -1,10 +1,9 @@
 # Git Repository Agent
 
-[![Travis](https://img.shields.io/travis/frictionlessdata/datapackage-pipelines-registry-agent/master.svg)](https://travis-ci.org/frictionlessdata/datapackage-pipelines-registry-agent)
-[![Coveralls](http://img.shields.io/coveralls/frictionlessdata/datapackage-pipelines-registry-agent/master.svg)](https://coveralls.io/r/frictionlessdata/datapackage-pipelines-registry-agent?branch=master)
-[![PyPi](https://img.shields.io/pypi/v/datapackage-pipelines-registry-agent.svg)](https://pypi.python.org/pypi/datapackage-pipelines-registry-agent)
+[![Travis](https://img.shields.io/travis/openspending/repository-agent/master.svg)](https://travis-ci.org/openspending/repository-agent)
+[![Coveralls](http://img.shields.io/coveralls/openspending/repository-agent/master.svg)](https://coveralls.io/r/openspending/repository-agent?branch=master)
 [![SemVer](https://img.shields.io/badge/versions-SemVer-brightgreen.svg)](http://semver.org/)
-[![Gitter](https://img.shields.io/gitter/room/frictionlessdata/chat.svg)](https://gitter.im/frictionlessdata/chat)
+[![Gitter](https://img.shields.io/gitter/room/openspending/chat.svg)](https://gitter.im/openspending/chat)
 
 
 Keep a local registry of git repositories up to date, using Celery as a scheduler.
@@ -14,7 +13,7 @@ Keep a local registry of git repositories up to date, using Celery as a schedule
 ```
 # clone the repo and install with pip
 
-git clone https://github.com/frictionlessdata/datapackage-pipelines-registry-agent.git
+git clone https://github.com/openspending/repository-agent.git
 pip install -e .
 ```
 

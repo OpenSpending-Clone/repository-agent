@@ -1,7 +1,7 @@
 from envparse import env
 from celery import Celery
 
-from datapackage_pipelines_registry_agent.app import _pull_repo
+from repository_agent.app import _pull_repo
 
 REPOS = env('REGISTRY_REPOS', cast=list, subcast=str)
 UPDATE_FREQUENCY = env.int('REGISTRY_UPDATE_FREQUENCY', default=30)

@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from test.support import EnvironmentVarGuard
 
-from datapackage_pipelines_registry_agent.app import \
+from repository_agent.app import \
     _get_repo_dir_path, _pull_repo
 
 

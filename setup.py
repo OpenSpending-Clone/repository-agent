@@ -15,7 +15,7 @@ def read(*paths):
 
 
 # Prepare
-PACKAGE = 'datapackage_pipelines_registry_agent'
+PACKAGE = 'repository_agent'
 NAME = PACKAGE.replace('_', '-')
 INSTALL_REQUIRES = [
     'gitpython',
@@ -45,9 +45,9 @@ setup(
     zip_safe=False,
     long_description=README,
     long_description_content_type="text/markdown",
-    description='Keep datapackage-pipeline source specs up to date with a git repository.',  # noqa
+    description='Keep local files up to date with a git repository.',  # noqa
     author='Open Knowledge International',
-    url='https://github.com/frictionlessdata/datapackage_pipelines_registry_agent',  # noqa
+    url='https://github.com/openspending/repository-agent',  # noqa
     license='MIT',
     keywords=[
         'data'
