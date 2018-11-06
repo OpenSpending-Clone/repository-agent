@@ -12,6 +12,7 @@ log = logging.getLogger(__name__)
 REPOS = env('REPO_AGENT_REPOS', cast=list, subcast=str)
 UPDATE_FREQUENCY = env.int('REPO_AGENT_UPDATE_FREQUENCY', default=30)
 BROKER = env('REPO_AGENT_BROKER')
+CLEAN_ON_UPDATE = env('REPO_AGENT_CLEAN_ON_UPDATE', cast=bool, default=False)
 
 celeryapp = Celery(broker=BROKER)
 
@@ -30,7 +31,7 @@ def update_all_repos(repos):
 @celeryapp.task
 def update_repo_task(repo_url):
     try:
-        update_repo(repo_url)
+        update_repo(repo_url, clean=CLEAN_ON_UPDATE)
     except (GitCommandError, InvalidGitRepositoryError) as e:
         log.error('Repo update failed. Logging and moving on...')
         log.error(e)

@@ -6,8 +6,7 @@ from test.support import EnvironmentVarGuard
 
 from git.exc import GitCommandError
 
-from repository_agent.app import \
-    _get_repo_dir_path, update_repo
+from repository_agent.app import _get_repo_dir_path, update_repo
 
 
 class TestGetRepoPath(unittest.TestCase):
@@ -110,3 +109,27 @@ class TestPullRepos(unittest.TestCase):
         '''
         with self.env, self.assertRaises(GitCommandError):
             update_repo('/my/local/path/to/nonexistent-repo')
+
+    def test_pull_clean_on_update(self):
+        '''
+        If clean=True, remove untracked files during update.
+        '''
+        with self.env:
+            # pull local repo to tmp directory location
+            update_repo(self.local_repo)
+
+            untracked_file = \
+                os.path.join(self.tmp_dir, 'local-example/untracked.txt')
+
+            # put an untracked file in there...
+            with open(untracked_file, "w") as f:
+                f.write("Untracked file!")
+            assert os.path.exists(untracked_file)
+
+            # pull again (without cleaning)
+            update_repo(self.local_repo, clean=False)
+            assert os.path.exists(untracked_file)
+
+            # pull again (with clean)
+            update_repo(self.local_repo, clean=True)
+            assert not os.path.exists(untracked_file)

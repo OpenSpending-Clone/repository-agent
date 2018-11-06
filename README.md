@@ -27,6 +27,7 @@ Settings can be configured via environmental variables.
 REPO_AGENT_BASE_DIR: /app/repositories  # Directory to clone repos to
 
 # If using the celery scheduler
+REPO_AGENT_CLEAN_ON_UPDATE: False  # Clean local repos during update (removes local untracked files)
 REPO_AGENT_UPDATE_FREQUENCY: 300  # Frequency, in seconds, for updating the registry.
 REPO_AGENT_BROKER: redis://redis:6379/10  # URL for the redis task broker
 REPO_AGENT_REPOS: https://github.com/example1/example-repo, https://github.com/example2/example-repo  # List of repositories separated by commas
