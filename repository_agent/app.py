@@ -20,9 +20,12 @@ def _get_repo_dir_path(url):
     return os.path.join(BASE_DIR, repo_dir)
 
 
-def update_repo(repo_url):
+def update_repo(repo_url, clean=False):
     '''
     Update an individual repo.
+
+    `clean` determines whether the repo directory should be forcibly cleaned
+    before updating.
     '''
     repo_path = _get_repo_dir_path(repo_url)
     # If repo_path doesn't exist, create it.
@@ -39,6 +42,7 @@ def update_repo(repo_url):
         # This repo's remote corresponds with repo_url, force pull it.
         if repo_url == repo.remotes.origin.url:
             log.info('Updating "{}" from {}'.format(repo_path, repo_url))
-            repo.git.clean('-d', '-f')
+            if clean:
+                repo.git.clean('-d', '-f')
             repo.head.reset(index=True, working_tree=True)
             repo.remotes.origin.pull()
