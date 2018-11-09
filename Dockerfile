@@ -8,6 +8,7 @@ ADD . /app
 RUN apk add --virtual .build-deps \
     gcc \
     python3-dev \
+    && mv ./app/gitconfig_for_container ~/.gitconfig \
     && pip install -e ./app \
     && apk del --no-cache .build-deps
 
