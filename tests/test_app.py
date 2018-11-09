@@ -6,7 +6,8 @@ from test.support import EnvironmentVarGuard
 
 from git.exc import GitCommandError
 
-from repository_agent.app import _get_repo_dir_path, update_repo
+from repository_agent.app import \
+    _get_repo_dir_path, _get_repo_remote, update_repo
 
 
 class TestGetRepoPath(unittest.TestCase):
@@ -21,15 +22,59 @@ class TestGetRepoPath(unittest.TestCase):
             ['/My/Local/Path/To/repo', '/path/to/specs/repo'],
             ['https://github.com/brew/example-source-spec',
              '/path/to/specs/example-source-spec'],
-            ['https://github.com/brew/example-source-spec.git#asdf?q=hi',
+            ['https://github.com/brew/example-source-spec.git?q=hi#asdf',
              '/path/to/specs/example-source-spec'],
-            ['git@github.com:brew/example-source-spec.git#asdf?q=hi',
+            ['git@github.com:brew/example-source-spec.git?q=hi#asdf',
              '/path/to/specs/example-source-spec']
         ]
 
         with self.env:
             for input, returned in valid_paths:
                 assert _get_repo_dir_path(input) == returned
+
+
+class TestGetRepoBranch(unittest.TestCase):
+
+    def setUp(self):
+        self.env = EnvironmentVarGuard()
+        self.env.set('REPO_AGENT_BASE_DIR', '/path/to/specs')
+
+    def test_path_success(self):
+        valid_paths = [
+            ['hi', 'master'],
+            ['/My/Local/Path/To/repo', 'master'],
+            ['https://github.com/brew/example-source-spec', 'master'],
+            ['https://github.com/brew/example-source-spec.git?q=hi#asdf',
+             'asdf'],
+            ['git@github.com:brew/example-source-spec.git?q=hi#asdf', 'asdf']
+        ]
+
+        with self.env:
+            for input, returned in valid_paths:
+                assert _get_repo_remote(input)[1] == returned
+
+
+class TestGetRepoUrl(unittest.TestCase):
+
+    def setUp(self):
+        self.env = EnvironmentVarGuard()
+        self.env.set('REPO_AGENT_BASE_DIR', '/path/to/specs')
+
+    def test_path_success(self):
+        valid_paths = [
+            ['hi', 'hi'],
+            ['/My/Local/Path/To/repo', '/My/Local/Path/To/repo'],
+            ['https://github.com/brew/example-source-spec',
+             'https://github.com/brew/example-source-spec'],
+            ['https://github.com/brew/example-source-spec.git?q=hi#asdf',
+             'https://github.com/brew/example-source-spec.git?q=hi'],
+            ['git@github.com:brew/example-source-spec.git?q=hi#asdf',
+             'git@github.com:brew/example-source-spec.git?q=hi']
+        ]
+
+        with self.env:
+            for input, returned in valid_paths:
+                assert _get_repo_remote(input)[0] == returned
 
 
 class TestPullRepos(unittest.TestCase):
