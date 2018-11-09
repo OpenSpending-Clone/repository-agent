@@ -33,6 +33,14 @@ REPO_AGENT_BROKER: redis://redis:6379/10  # URL for the redis task broker
 REPO_AGENT_REPOS: https://github.com/example1/example-repo, https://github.com/example2/example-repo#branch  # List of repositories separated by commas
 ```
 
+### Resetting the repos
+
+Sometimes the automatically fetched repositories get into a state where they are in conflict with the upstream origin and updates can't be pulled. For example, if pulls require a merge conflict to be resolved, or if someone force pushed to the origin. The quickest way to resolve this is simply to remove the affected cloned repository, and allow repository-agent to repopulate it:
+
+```sh
+$ rm -rf /app/repositories/affected-repo
+```
+
 ### Local development
 
 Use the provided `docker-compose.yml` file to start the application with the celery scheduler.
